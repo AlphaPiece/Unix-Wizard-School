@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 14:51:04 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/10 15:59:42 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/10 16:06:58 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void		list_dirs(char *dirs[], int len)
 			else
 				print_obj_name(obj_set[i]->sub_obj);
 		}
+		ft_putchar('\n');
 	}
-	ft_putchar('\n');
 }
 
 void		list_argv(int argc, char *argv[])
