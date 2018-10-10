@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 14:51:04 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/10 15:37:38 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/10 15:59:42 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,18 @@ extern int	g_options[OPTION_NUM];
 void		print_dir_info(t_obj *obj)
 {
 	struct stat	fs;
-	char		*path_name;
 
-	path_name = get_path_name(obj);
-	ft_printf("%s:\n", path_name);
-	if (stat(path_name, &fs) < 0)
+	if (stat(obj->name, &fs) < 0)
 		stat_error();
-	free(path_name);
-	ft_printf("total: %d\n", fs.st_blocks);
+	ft_printf("total %d\n", fs.st_blocks);
 	print_long_format(obj->sub_obj);
 	ft_putchar('\n');
 }
 
 void		list_curr_dir(void)
 {
+	t_obj	*obj;
+	
 	obj = create_new_obj(".");
 	set_sub_obj(obj);
 	sort_obj(obj->sub_obj, obj->sub_obj_num,
@@ -49,9 +47,9 @@ void		list_curr_dir(void)
 	}
 }
 
-void		list_files(char *files, int len)
+void		list_files(char *files[], int len)
 {
-	t_obj	*obj_set[len];
+	t_obj	*obj_set[len + 1];
 	int		i;
 
 	i = -1;
@@ -71,9 +69,9 @@ void		list_files(char *files, int len)
 	}
 }
 
-void		list_dirs(char *dirs, int len)
+void		list_dirs(char *dirs[], int len)
 {
-	t_obj	*obj_set[len];
+	t_obj	*obj_set[len + 1];
 	int		i;
 
 	i = -1;
@@ -85,23 +83,24 @@ void		list_dirs(char *dirs, int len)
 					(g_options[date]) ? cmp_time : cmp_ascii);
 		if (g_options[reverse])
 			reverse_order(obj_set[i]->sub_obj, obj_set[i]->sub_obj_num);
-		set_sub_dir_name(obj);
+		set_sub_dir_name(obj_set[i]);
 	}
 	obj_set[i] = NULL;
 	i = -1;
 	while (++i < len)
 	{
-		if (options[recursion])
+		if (g_options[recursion])
 			print_recursively(obj_set[i]);
 		else
 		{
+			ft_printf("%s:\n", obj_set[i]->name);
 			if (g_options[long_format])
 				print_dir_info(obj_set[i]);
 			else
 				print_obj_name(obj_set[i]->sub_obj);
 		}
-		ft_putchar('\n');
 	}
+	ft_putchar('\n');
 }
 
 void		list_argv(int argc, char *argv[])
@@ -125,6 +124,8 @@ void		list_argv(int argc, char *argv[])
 		else
 			files[k++] = argv[i];
 	}
-	list_files(files, k);
-	list_dirs(dirs, j);
+	if (k > 0)
+		list_files(files, k);
+	if (j > 0)
+		list_dirs(dirs, j);
 }
