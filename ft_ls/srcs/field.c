@@ -6,14 +6,16 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/06 12:14:51 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/10 14:35:46 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/10 23:38:04 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		print_field_1234(struct stat *fs)
+void		print_field_1234(struct stat *fs, char *path_name)
 {
+	char	list[500];
+
 	ft_printf((S_ISDIR(fs->st_mode)) ? "d" : "-");
 	ft_printf((fs->st_mode & S_IRUSR) ? "r" : "-");
 	ft_printf((fs->st_mode & S_IWUSR) ? "w" : "-");
@@ -25,6 +27,8 @@ void		print_field_1234(struct stat *fs)
 	ft_printf((fs->st_mode & S_IWOTH) ? "w" : "-");
 	ft_printf((fs->st_mode & S_IXOTH) ? "x" : "-");
 	ft_printf(" ");
+	listxattr(path_name, list, 500, XATTR_NOFOLLOW);
+	ft_printf("%s	", list);
 }
 
 void		print_field_5678(struct stat *fs)
@@ -49,7 +53,7 @@ void	print_field_9(struct stat *fs)
 
 	time(&now);
 	buf = ctime(&fs->st_mtime);
-	if (difftime(now, fs->st_mtime) > 15552000)
+	if (now - fs->st_mtime > 15552000)
 	{
 		ft_putlstr(buf, 4, 7);
 		ft_putlstr(buf, 19, 4);

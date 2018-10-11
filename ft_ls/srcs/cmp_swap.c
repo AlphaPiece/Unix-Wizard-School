@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 16:54:11 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/06 13:36:57 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/10 22:57:59 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int			cmp_time(t_obj *obj1, t_obj *obj2)
 
 	path1 = get_path_name(obj1);
 	path2 = get_path_name(obj2);
-	if (stat(path1, &buf1) < 0 || stat(path2, &buf2) < 0)
-		stat_error();
+	if (lstat(path1, &buf1) < 0)
+		lstat_error(path1);	
+	if (lstat(path2, &buf2) < 0)
+		lstat_error(path2);
 	return (buf2.st_mtime - buf1.st_mtime);
 }
 

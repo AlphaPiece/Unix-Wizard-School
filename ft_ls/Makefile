@@ -6,7 +6,7 @@
 #    By: zwang <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/10 14:18:06 by zwang             #+#    #+#              #
-#    Updated: 2018/10/10 16:10:34 by zwang            ###   ########.fr        #
+#    Updated: 2018/10/10 22:54:28 by zwang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,10 @@ clean:
 	@make -C srcs/libft/ clean
 	
 fclean: clean
-	@rm $(NAME)
-	@rm libft.a
+	@rm -rf $(NAME)
+	@rm -rf libft.a
 	@printf "$(RED)[x] $(RESET)\x1B[31m$(NAME) deleted\n"
 
 re: fclean all
+
+.PHONY: all clean fclean re

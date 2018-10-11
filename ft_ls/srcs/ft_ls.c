@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 10:12:14 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/10 09:58:21 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/10 16:17:19 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	collect_options(int *argc, char *(*argv[]))
 				g_options[date] = true;
 			else
 			{
-				ft_printf("ls: illegal option -- %c\n", c);
+				ft_printf("./ft_ls: illegal option -- %c\n", c);
 				ft_printf("usage: ./ft_ls [-Ralrt] [file ...]\n");
 				exit(1);
 			}

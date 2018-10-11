@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 09:44:48 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/10 09:59:45 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/10 23:33:24 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <dirent.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <sys/xattr.h>
 # include <pwd.h>
 # include <grp.h>
 # include <uuid/uuid.h>
@@ -37,9 +38,9 @@ typedef struct		s_obj
 	int				dir_obj_num;
 }					t_obj;
 
-void				stat_error(void);
 void				malloc_error(void);
-void				opendir_error(void);
+void				lstat_error(char *file_name);
+void				opendir_error(char *file_name);
 
 t_obj				*create_new_obj(char *path_name);
 char				*get_path_name(t_obj *obj);
@@ -54,7 +55,7 @@ void				sort_obj(t_obj *obj[], int obj_num,
 								int (*cmp)(t_obj *, t_obj *));
 void				reverse_order(t_obj *obj[], int obj_num);
 
-void				print_field_1234(struct stat *fs);
+void				print_field_1234(struct stat *fs, char *path_name);
 void				print_field_5678(struct stat *fs);
 void				print_field_9(struct stat *fs);
 

@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 14:51:04 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/10 16:06:58 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/10 22:58:38 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,24 @@ extern int	g_options[OPTION_NUM];
 void		print_dir_info(t_obj *obj)
 {
 	struct stat	fs;
+	blkcnt_t	blocks;
+	int			i;
+	char		*path_name;
 
-	if (stat(obj->name, &fs) < 0)
-		stat_error();
-	ft_printf("total %d\n", fs.st_blocks);
+	blocks = 0;
+	i = -1;
+	while (obj->sub_obj[++i])
+	{
+		if (!g_options[all] && ft_strstart(obj->sub_obj[i]->name, "."))
+			continue ;
+		path_name = get_path_name(obj->sub_obj[i]);
+		if (lstat(path_name, &fs) < 0)
+			lstat_error(obj->sub_obj[i]->name);
+		free(path_name);
+		blocks += fs.st_blocks;
+	}
+	ft_printf("total %d\n", blocks);
 	print_long_format(obj->sub_obj);
-	ft_putchar('\n');
 }
 
 void		list_curr_dir(void)
@@ -117,8 +129,8 @@ void		list_argv(int argc, char *argv[])
 	k = 0;
 	while (++i < argc)
 	{
-		if (stat(argv[i], &fs) < 0)
-			stat_error();
+		if (lstat(argv[i], &fs) < 0)
+			lstat_error(argv[i]);
 		if (S_ISDIR(fs.st_mode))
 			dirs[j++] = argv[i];
 		else

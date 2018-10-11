@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 17:05:20 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/10 13:20:34 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/10 23:32:45 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void		print_long_format(t_obj *obj_set[])
 	int			i;
 	struct stat	fs;
 	char		*path_name;
+	char		buf[500];
 
 	i = -1;
 
@@ -40,13 +41,20 @@ void		print_long_format(t_obj *obj_set[])
 		if (!g_options[all] && ft_strstart(obj_set[i]->name, "."))
 			continue ;
 		path_name = get_path_name(obj_set[i]);
-		if (stat(path_name, &fs) < 0)
-			stat_error();
-		free(path_name);
-		print_field_1234(&fs);
+		if (lstat(path_name, &fs) < 0)
+			lstat_error(path_name);
+		print_field_1234(&fs, path_name);
 		print_field_5678(&fs);
 		print_field_9(&fs);
-		ft_printf(" %s\n", obj_set[i]->name);
+		ft_printf(" %s", obj_set[i]->name);
+		if (S_ISLNK(fs.st_mode))
+		{
+			readlink(path_name, buf, 500);
+			ft_printf(" -> %s\n", buf);
+		}
+		else
+			ft_putchar('\n');
+		free(path_name);
 	}
 }
 

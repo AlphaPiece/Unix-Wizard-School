@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 10:00:47 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/10 08:50:24 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/10 22:56:14 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ t_obj		*create_new_obj(char *name)
 	t_obj	*obj;
 
 	if (!(obj = (t_obj *)malloc(sizeof(t_obj))))
-	{
-		ft_dprintf(2, "ft_ls: allocation error\n");
-		exit(EXIT_FAILURE);
-	}
+		malloc_error();
 	obj->name = ft_strdup(name);
 	obj->super_obj = NULL;
 	obj->sub_obj = NULL;
@@ -62,8 +59,8 @@ static void	set_dir_lst(t_obj *obj, char *dir_lst[], int *i)
 		if (!g_options[all] && ft_strstart(obj->sub_obj[j]->name, "."))
 			continue ;
 		path_name = get_path_name(obj->sub_obj[j]);
-		if (stat(path_name, &fs) < 0)
-			stat_error();
+		if (lstat(path_name, &fs) < 0)
+			lstat_error(path_name);
 		if (S_ISDIR(fs.st_mode) && !ft_strequ(obj->sub_obj[j]->name, ".") &&
 			!ft_strequ(obj->sub_obj[j]->name, ".."))
 			dir_lst[(*i)++] = obj->sub_obj[j]->name;
@@ -101,9 +98,8 @@ void		set_sub_obj(t_obj *obj)
 		malloc_error();
 	path_name = get_path_name(obj);
 	if (!(dir = opendir(path_name)))
-		opendir_error();
-	if (obj->super_obj)
-		free(path_name);
+		opendir_error(path_name);
+	free(path_name);
 	pos = 0;
 	while ((dirent = readdir(dir)))
 	{
