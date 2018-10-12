@@ -6,7 +6,7 @@
 #    By: zwang <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/10 14:18:06 by zwang             #+#    #+#              #
-#    Updated: 2018/10/12 10:11:26 by zwang            ###   ########.fr        #
+#    Updated: 2018/10/12 10:14:25 by zwang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,18 +26,18 @@ RED = \033[1;31m
 all: $(NAME)
 
 $(NAME):
-#	@make -C srcs/libft/
-#	@mv srcs/libft/libft.a .
+	@make -C srcs/libft/
 	@printf "\n\x1B[38;5;208mCompiling $(NAME)...\n\x1b[37m"
-	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS) libft.a -I $(INCS) -I srcs/libft/incs
+	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS) srcs/libft/libft.a -I $(INCS) \
+		-I srcs/libft/incs
 	@printf "\n$(GREEN)[✓] $(RESET)\x1B[32m$(NAME) ready!\n\x1b[37m"
 
 clean:
 	@make -C srcs/libft/ clean
 	
 fclean: clean
+	@make -C srcs/libft/ fclean
 	@rm -rf $(NAME)
-#	@rm -rf libft.a
 	@printf "$(RED)[x] $(RESET)\x1B[31m$(NAME) deleted\n"
 
 re: fclean all
