@@ -6,11 +6,41 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 16:45:54 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/10 09:28:57 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/12 09:56:31 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+int			compare_ascii(t_obj *obj1, t_obj *obj2)
+{
+	return (ft_strcmp(obj1->name, obj2->name));
+}
+
+int			compare_time(t_obj *obj1, t_obj *obj2)
+{
+	struct stat	buf1;
+	struct stat	buf2;
+	char		*path1;
+	char		*path2;
+
+	path1 = get_path_name(obj1);
+	path2 = get_path_name(obj2);
+	if (lstat(path1, &buf1) < 0)
+		lstat_error(path1);
+	if (lstat(path2, &buf2) < 0)
+		lstat_error(path2);
+	return (buf2.st_mtime - buf1.st_mtime);
+}
+
+void		swap_obj(t_obj *obj_set[], int i, int j)
+{
+	t_obj	*tmp;
+
+	tmp = obj_set[i];
+	obj_set[i] = obj_set[j];
+	obj_set[j] = tmp;
+}
 
 void	sort_obj(t_obj *obj_set[], int obj_num, int (*cmp)(t_obj *, t_obj *))
 {
@@ -36,7 +66,7 @@ void	sort_obj(t_obj *obj_set[], int obj_num, int (*cmp)(t_obj *, t_obj *))
 	}
 }
 
-void	reverse_order(t_obj *obj_set[], int obj_num)
+void	reverse_obj(t_obj *obj_set[], int obj_num)
 {
 	int		i;
 	int		j;

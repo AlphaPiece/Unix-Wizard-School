@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 10:12:14 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/10 16:17:19 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/12 10:10:48 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int		g_options[OPTION_NUM] = {0};
+int			g_options[OPTION_NUM] = {0};
 
-void	collect_options(int *argc, char *(*argv[]))
+static void	collect_options(int *argc, char *(*argv[]))
 {
 	char	c;
 
@@ -40,12 +40,12 @@ void	collect_options(int *argc, char *(*argv[]))
 			}
 }
 
-int		main(int argc, char *argv[])
+int			main(int argc, char *argv[])
 {
 	collect_options(&argc, &argv);
 	if (argc == 0)
-		list_curr_dir();
+		list_cur_dir();
 	else
-		list_argv(argc, argv);
+		list_arg(argc, argv);
 	return (0);
 }

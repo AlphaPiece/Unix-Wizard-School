@@ -6,7 +6,7 @@
 #    By: zwang <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/10 14:18:06 by zwang             #+#    #+#              #
-#    Updated: 2018/10/10 22:54:28 by zwang            ###   ########.fr        #
+#    Updated: 2018/10/12 10:11:26 by zwang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 LIB = libft.a
 
-SRCS = srcs/arg_vec.c srcs/error.c srcs/ft_ls.c srcs/sort.c \
-	   srcs/cmp_swap.c srcs/field.c srcs/layout.c srcs/setup.c
+SRCS = srcs/handler.c srcs/error.c srcs/sort.c srcs/field.c srcs/layout.c \
+	   srcs/setup.c srcs/main.c
 INCS = incs/
 
 RESET = \033[0m
@@ -26,8 +26,8 @@ RED = \033[1;31m
 all: $(NAME)
 
 $(NAME):
-	@make -C srcs/libft/
-	@mv srcs/libft/libft.a .
+#	@make -C srcs/libft/
+#	@mv srcs/libft/libft.a .
 	@printf "\n\x1B[38;5;208mCompiling $(NAME)...\n\x1b[37m"
 	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS) libft.a -I $(INCS) -I srcs/libft/incs
 	@printf "\n$(GREEN)[✓] $(RESET)\x1B[32m$(NAME) ready!\n\x1b[37m"
@@ -37,7 +37,7 @@ clean:
 	
 fclean: clean
 	@rm -rf $(NAME)
-	@rm -rf libft.a
+#	@rm -rf libft.a
 	@printf "$(RED)[x] $(RESET)\x1B[31m$(NAME) deleted\n"
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 10:00:47 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/10 22:56:14 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/12 09:53:34 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ void		set_sub_dir_name(t_obj *obj)
 	i = 0;
 	set_dir_lst(obj, dir_lst, &i);
 	dir_lst[i] = NULL;
-	if (!(obj->dir_obj_name = (char **)malloc(sizeof(char *) * (i + 1))))
+	if (!(obj->sub_dir_name = (char **)malloc(sizeof(char *) * (i + 1))))
 		malloc_error();
 	i = 0;
-	while ((obj->dir_obj_name[i] = dir_lst[i]))
+	while ((obj->sub_dir_name[i] = dir_lst[i]))
 		i++;
-	obj->dir_obj_num = i;
+	obj->sub_dir_num = i;
 }	
 
 void		set_sub_obj(t_obj *obj)
