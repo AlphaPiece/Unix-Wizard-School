@@ -6,13 +6,13 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/06 12:14:51 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/12 09:33:59 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/12 10:18:49 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		put_field_1234(struct stat *fs, char *path_name)
+void	put_field_1234(struct stat *fs, char *path_name)
 {
 	char	list[500];
 
@@ -31,7 +31,7 @@ void		put_field_1234(struct stat *fs, char *path_name)
 	ft_printf("%s	", list);
 }
 
-void		put_field_5678(struct stat *fs)
+void	put_field_5678(struct stat *fs)
 {
 	struct passwd	*pwd;
 	struct group	*grp;
