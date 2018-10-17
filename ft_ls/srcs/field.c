@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/06 12:14:51 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/12 10:18:49 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/17 09:12:20 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	put_field_1234(struct stat *fs, char *path_name)
 	ft_printf((fs->st_mode & S_IROTH) ? "r" : "-");
 	ft_printf((fs->st_mode & S_IWOTH) ? "w" : "-");
 	ft_printf((fs->st_mode & S_IXOTH) ? "x" : "-");
-	ft_printf(" ");
-	listxattr(path_name, list, 500, XATTR_NOFOLLOW);
-	ft_printf("%s	", list);
+	if (listxattr(path_name, list, 500, XATTR_NOFOLLOW) != 0)
+		ft_printf("@ ");
+	else
+		ft_printf("  ");
 }
 
 void	put_field_5678(struct stat *fs)
@@ -36,7 +37,7 @@ void	put_field_5678(struct stat *fs)
 	struct passwd	*pwd;
 	struct group	*grp;
 
-	ft_printf("%2d ", fs->st_nlink);
+	ft_printf("%3d ", fs->st_nlink);
 	if (!(pwd = getpwuid(fs->st_uid)))
 		exit(4);
 	ft_printf("%s  ", pwd->pw_name);
