@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 16:45:54 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/12 09:56:31 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/17 20:52:08 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ int			compare_time(t_obj *obj1, t_obj *obj2)
 		lstat_error(path1);
 	if (lstat(path2, &buf2) < 0)
 		lstat_error(path2);
-	return (buf2.st_mtime - buf1.st_mtime);
+	if (buf2.st_mtime != buf1.st_mtime)
+		return (buf2.st_mtime - buf1.st_mtime);
+	return (buf2.st_mtimespec.tv_nsec - buf1.st_mtimespec.tv_nsec);
 }
 
 void		swap_obj(t_obj *obj_set[], int i, int j)
