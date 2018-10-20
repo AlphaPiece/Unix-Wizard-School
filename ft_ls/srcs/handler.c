@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 14:51:04 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/19 21:35:59 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/19 21:55:24 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		list_cur_dir(void)
 			put_dir_info(obj);
 		else
 			put_obj_name(obj->sub_obj);
-	}
+	}	
 }
 
 void		list_arg_fil(char *fils[], int len)
