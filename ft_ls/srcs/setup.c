@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 10:00:47 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/12 09:53:34 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/19 21:34:37 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char		*get_path_name(t_obj *obj)
 {
 	char	*path_name;
 	char	*path;
+	char	*ptr;
 	
 	path_name = NULL;
 	while (obj)
@@ -39,8 +40,11 @@ char		*get_path_name(t_obj *obj)
 		else
 		{
 			path = ft_strjoin(obj->name, "/");
+			ptr = path_name;
 			path_name = ft_strjoin(path, path_name);
 			free(path);
+			if (ptr)
+				free(ptr);
 		}
 		obj = obj->super_obj;
 	}
