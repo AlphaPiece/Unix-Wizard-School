@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 10:00:47 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/19 21:42:10 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/22 10:54:25 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ t_obj		*create_new_obj(char *name)
 	obj->name = ft_strdup(name);
 	obj->super_obj = NULL;
 	obj->sub_obj = NULL;
+	obj->sub_dir_name = NULL;
+	obj->sub_obj_num = 0;
+	obj->sub_dir_num = 0;
 	return (obj);
 }
 

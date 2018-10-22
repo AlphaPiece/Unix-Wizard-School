@@ -6,7 +6,7 @@
 #    By: zwang <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/10 14:18:06 by zwang             #+#    #+#              #
-#    Updated: 2018/10/13 09:53:11 by zwang            ###   ########.fr        #
+#    Updated: 2018/10/22 11:11:09 by zwang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror
 LIB = libft.a
 
 SRCS = srcs/handler.c srcs/error.c srcs/sort.c srcs/field.c srcs/layout.c \
-	   srcs/setup.c srcs/ft_ls.c
+	   srcs/setup.c srcs/free.c srcs/ft_ls.c
 INCS = incs/
 
 RESET = \033[0m

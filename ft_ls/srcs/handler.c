@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 14:51:04 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/19 21:55:24 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/22 11:03:29 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,18 @@ void		list_cur_dir(void)
 		reverse_obj(obj->sub_obj, obj->sub_obj_num);
 	set_sub_dir_name(obj);
 	if (g_options[recursion])
+	{
 		put_recursively(obj);
+		free_recursively(&obj);
+	}
 	else
 	{
 		if (g_options[long_format])
 			put_dir_info(obj);
 		else
 			put_obj_name(obj->sub_obj);
-	}	
+		free_obj(&obj);
+	}
 }
 
 void		list_arg_fil(char *fils[], int len)
@@ -48,14 +52,14 @@ void		list_arg_fil(char *fils[], int len)
 	sort_obj(obj_set, len, (g_options[date]) ? compare_time : compare_ascii);
 	if (g_options[reverse])
 		reverse_obj(obj_set, len);
+	if (g_options[long_format])
+		put_obj_info(obj_set);
 	else
-	{
-		if (g_options[long_format])
-			put_obj_info(obj_set);
-		else
-			put_obj_name(obj_set);
-		ft_putchar('\n');
-	}
+		put_obj_name(obj_set);
+	ft_putchar('\n');
+	i = -1;
+	while (++i < len)
+		free_obj(&obj_set[i]);
 }
 
 static void	set_dir_obj_set(char *dirs[], t_obj *obj_set[], int len, int *i)
@@ -84,7 +88,10 @@ void		list_arg_dir(char *dirs[], int len)
 	while (++i < len)
 	{
 		if (g_options[recursion])
+		{
 			put_recursively(obj_set[i]);
+			free_recursively(&obj_set[i]);
+		}
 		else
 		{
 			ft_printf("%s:\n", obj_set[i]->name);
@@ -92,6 +99,7 @@ void		list_arg_dir(char *dirs[], int len)
 				put_dir_info(obj_set[i]);
 			else
 				put_obj_name(obj_set[i]->sub_obj);
+			free_obj(&obj_set[i]);
 		}
 		ft_putchar('\n');
 	}

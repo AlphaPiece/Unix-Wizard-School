@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 09:44:48 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/12 10:12:54 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/22 11:11:35 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ void				put_obj_name(t_obj *obj_set[]);
 void				put_obj_info(t_obj *obj_set[]);
 void				put_dir_info(t_obj *obj);
 void				put_recursively(t_obj *obj);
+
+void				free_obj(t_obj **obj);
+void				free_recursively(t_obj **obj);
 
 void				list_cur_dir(void);
 void				list_arg_fil(char *fils[], int len);
