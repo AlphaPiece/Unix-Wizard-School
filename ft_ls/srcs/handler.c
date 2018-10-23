@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 14:51:04 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/22 11:03:29 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/22 11:37:51 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ extern int	g_options[OPTION_NUM];
 void		list_cur_dir(void)
 {
 	t_obj	*obj;
-	
+
 	obj = create_new_obj(".");
 	set_sub_obj(obj);
 	sort_obj(obj->sub_obj, obj->sub_obj_num,
@@ -109,25 +109,23 @@ void		list_arg(int argc, char *argv[])
 {
 	char		*fils[argc];
 	char		*dirs[argc];
-	int			i;
-	int			j;
-	int			k;
+	int			i[3];
 	struct stat	fs;
 
-	i = -1;
-	j = 0;
-	k = 0;
-	while (++i < argc)
+	i[0] = -1;
+	i[1] = 0;
+	i[2] = 0;
+	while (++i[0] < argc)
 	{
-		if (lstat(argv[i], &fs) < 0)
-			lstat_error(argv[i]);
+		if (lstat(argv[i[0]], &fs) < 0)
+			lstat_error(argv[i[0]]);
 		if (S_ISDIR(fs.st_mode))
-			dirs[j++] = argv[i];
+			dirs[i[1]++] = argv[i[0]];
 		else
-			fils[k++] = argv[i];
+			fils[i[2]++] = argv[i[0]];
 	}
-	if (k > 0)
-		list_arg_fil(fils, k);
-	if (j > 0)
-		list_arg_dir(dirs, j);
+	if (i[2] > 0)
+		list_arg_fil(fils, i[2]);
+	if (i[1] > 0)
+		list_arg_dir(dirs, i[1]);
 }

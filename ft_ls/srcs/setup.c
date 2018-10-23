@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 10:00:47 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/22 10:54:25 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/22 11:46:26 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char		*get_path_name(t_obj *obj)
 	char	*path_name;
 	char	*path;
 	char	*ptr;
-	
+
 	path_name = NULL;
 	while (obj)
 	{
@@ -89,35 +89,38 @@ void		set_sub_dir_name(t_obj *obj)
 	while ((obj->sub_dir_name[i] = dir_lst[i]))
 		i++;
 	obj->sub_dir_num = i;
-}	
+}
+
+/*
+** n[0]: current position in the dir array
+** n[1]: current length of the dir array
+*/
 
 void		set_sub_obj(t_obj *obj)
 {
 	DIR				*dir;
 	struct dirent	*dirent;
-	int				pos;
-	int				sub_obj_num;
+	int				n[2];
 	char			*path_name;
 
-	sub_obj_num = SUB_OBJ_NUM;
-	obj->sub_obj = (t_obj **)malloc(sizeof(t_obj *) * (SUB_OBJ_NUM + 1));
-	if (!obj->sub_obj)
+	n[1] = OBJ_NUM;
+	if (!(obj->sub_obj = (t_obj **)malloc(sizeof(t_obj *) * (OBJ_NUM + 1))))
 		malloc_error();
 	path_name = get_path_name(obj);
 	if (!(dir = opendir(path_name)))
 		opendir_error(path_name);
 	free(path_name);
-	pos = 0;
+	n[0] = 0;
 	while ((dirent = readdir(dir)))
 	{
-		if (pos + 1 == sub_obj_num)
+		if (n[0] + 1 == n[1])
 			if (!(obj->sub_obj = (t_obj **)ft_memrealloc(obj->sub_obj,
-				sizeof(t_obj *) * (sub_obj_num += SUB_OBJ_NUM))))
+				sizeof(t_obj *) * (n[1] += OBJ_NUM))))
 				malloc_error();
-		obj->sub_obj[pos] = create_new_obj(dirent->d_name);
-		obj->sub_obj[pos++]->super_obj = obj;
+		obj->sub_obj[n[0]] = create_new_obj(dirent->d_name);
+		obj->sub_obj[n[0]++]->super_obj = obj;
 	}
 	closedir(dir);
-	obj->sub_obj[pos] = NULL;
-	obj->sub_obj_num = pos;
+	obj->sub_obj[n[0]] = NULL;
+	obj->sub_obj_num = n[0];
 }

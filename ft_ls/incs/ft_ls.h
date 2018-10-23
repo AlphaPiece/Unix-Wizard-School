@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 09:44:48 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/22 11:11:35 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/22 11:33:05 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <time.h>
 
 # define OPTION_NUM		5
-# define SUB_OBJ_NUM	30
+# define OBJ_NUM		30
 
 enum option	{long_format, recursion, all, reverse, date};
 

@@ -6,18 +6,18 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 16:45:54 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/19 21:46:37 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/22 11:25:09 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			compare_ascii(t_obj *obj1, t_obj *obj2)
+int		compare_ascii(t_obj *obj1, t_obj *obj2)
 {
 	return (ft_strcmp(obj1->name, obj2->name));
 }
 
-int			compare_time(t_obj *obj1, t_obj *obj2)
+int		compare_time(t_obj *obj1, t_obj *obj2)
 {
 	struct stat	buf1;
 	struct stat	buf2;
@@ -37,7 +37,7 @@ int			compare_time(t_obj *obj1, t_obj *obj2)
 	return (buf2.st_mtimespec.tv_nsec - buf1.st_mtimespec.tv_nsec);
 }
 
-void		swap_obj(t_obj *obj_set[], int i, int j)
+void	swap_obj(t_obj *obj_set[], int i, int j)
 {
 	t_obj	*tmp;
 
@@ -74,7 +74,7 @@ void	reverse_obj(t_obj *obj_set[], int obj_num)
 {
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	j = obj_num - 1;
 	while (i < j)

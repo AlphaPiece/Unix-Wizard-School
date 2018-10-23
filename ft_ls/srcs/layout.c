@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 17:05:20 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/19 21:39:14 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/22 11:27:39 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void		put_obj_info(t_obj *obj_set[])
 	char		buf[500];
 
 	i = -1;
-
 	while (obj_set[++i])
 	{
 		if (!g_options[all] && ft_strstart(obj_set[i]->name, "."))
@@ -50,10 +49,9 @@ void		put_obj_info(t_obj *obj_set[])
 		if (S_ISLNK(fs.st_mode))
 		{
 			readlink(path_name, buf, 500);
-			ft_printf(" -> %s\n", buf);
+			ft_printf(" -> %s", buf);
 		}
-		else
-			ft_putchar('\n');
+		ft_putchar('\n');
 		free(path_name);
 	}
 }
@@ -120,4 +118,4 @@ void		put_recursively(t_obj *obj)
 			put_recursively(obj->sub_obj[sub_dir_index]);
 		}
 	}
-}	
+}
