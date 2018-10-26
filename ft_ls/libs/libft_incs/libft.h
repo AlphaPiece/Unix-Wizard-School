@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 11:20:28 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/25 21:29:55 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/26 13:21:19 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,9 +163,8 @@ char				*ft_strchr(const char *s, int c);
 void				ft_strclr(char *s);
 int					ft_strcmp(const char *s1, const char *s2);
 size_t				ft_strclen(const char *s, char *delim);
-int					ft_strnsepc(const char *s, char *delim);
-int					ft_strnseps(const char *s, char *delim);
-int					ft_strnsubs(const char *str, const char *s);
+int					ft_strsepnum(const char *s, char *delim);
+int					ft_count_subs(const char *str, const char *s);
 char				*ft_strcpy(char *dst, const char *src);
 void				ft_strdel(char **as);
 char				*ft_strdup(const char *s);
