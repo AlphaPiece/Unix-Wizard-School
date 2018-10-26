@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/06 12:14:51 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/17 09:12:20 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/25 22:05:53 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	put_field_5678(struct stat *fs)
 	ft_printf("%s  ", pwd->pw_name);
 	if (!(grp = getgrgid(fs->st_gid)))
 		exit(4);
-	ft_printf("%s  ", grp->gr_name);
-	ft_printf("%6lld ", fs->st_size);
+	ft_printf("%s ", grp->gr_name);
+	ft_printf("%7lld ", fs->st_size);
 }
 
 void	put_field_9(struct stat *fs)

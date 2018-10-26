@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 11:20:28 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/09 20:17:45 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/25 21:29:55 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,76 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <fcntl.h>
+# include <stdint.h>
 # include "ft_nextline.h"
 # include "ft_vdprintf.h"
 # include "ft_bnt_to_bst.h"
-
-/*
-** ABS:		absolute number
-** BUFSIZE: for ft_getchar and ft_savechar to store data from stdin
-*/
-
-# define ABS(x)		(((x) < 0) ? -(x) : (x))
-# define BUFSIZE	100
 
 typedef int			t_bool;
 enum				{false, true};
 
 /*
-** NUMBER
+**
+**
+** >>>MEMORY<<<
+**
+**
 */
+
+/*
+** ARRLEN: len of an array; only for stack array
+** BITNUM: num of bit of 1 byte
+*/
+
+# define ARRLEN(a)	(sizeof(a) / sizeof(a[0]))
+# define BYTE		8
+# define WORD		32
+# define BIT8		(sizeof(uint8_t))
+# define BIT16		(sizeof(uint16_t))
+# define BIT32		(sizeof(uint32_t))
+# define BIT64		(sizeof(uint64_t))
+
+typedef union		u_uint
+{
+	uint8_t			uint8;
+	uint16_t		uint16;
+	uint32_t		uint32;
+	uint64_t		uint64;
+}					t_uint;
+
+typedef union		u_ptr
+{
+	uint8_t			*uint8p;
+	uint16_t		*uint16p;
+	uint32_t		*uint32p;
+	uint64_t		*uint64p;
+}					t_ptr;
+
+void				ft_bzero(void *s, size_t n);
+void				*ft_memalloc(size_t size);
+void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
+void				*ft_memchr(const void *s, int c, size_t n);
+int					ft_memcmp(const void *s1, const void *s2, size_t n);
+void				*ft_memcpy(void *dst, const void *src, size_t n);
+void				ft_memdel(void **ap);
+void				*ft_memmove(void *dst, const void *src, size_t len);
+void				*ft_memset(void *b, int c, size_t len);
+unsigned int		ft_getbits(unsigned int x, int p, int n);
+unsigned int		ft_setbits(unsigned int x, int p, int n, unsigned int y);
+unsigned int		ft_invertbits(unsigned int x, int p, int n);
+void				ft_swap(size_t byte, void *n1, void *n2);
+void				*ft_memrealloc(void *ptr, size_t size);
+void				ft_putbits(void *x, size_t bit);
+
+/*
+**
+**
+** >>>NUMBER<<<
+**
+**
+*/
+
+# define ABS(x)		(((x) < 0) ? -(x) : (x))
 
 /*
 ** t_fcompo:	contains all the parts of a single float type data
@@ -65,7 +117,7 @@ double				ft_ceil(double n);
 double				ft_floor(double n);
 t_fcompo			*ft_analyze_float(float n);
 int					*ft_numarrcpy(int *dst, const int *src, size_t len);
-t_bool				ft_iselem(char type, void *arr, size_t len, void *num);
+t_bool				ft_iselem(size_t byte, void *arr, size_t len, void *num);
 int					ft_max(int total_num, ...);
 int					ft_min(int total_num, ...);
 int					ft_sum(int total_num, ...);
@@ -74,7 +126,11 @@ int					ft_min_intarr(int arr[], size_t	len);
 int					ft_sum_intarr(int arr[], size_t len);
 
 /*
-** CHARACTER
+**
+**
+** >>>ASCII CHARACTER<<<
+**
+**
 */
 
 t_bool				ft_isalnum(int c);
@@ -89,7 +145,11 @@ int					ft_tolower(int c);
 int					ft_toupper(int c);
 
 /*
-** STRING
+**
+**
+** >>>ASCII CHARACTER STRING<<<
+**
+**
 */
 
 int					ft_atoi(const char *str);
@@ -102,8 +162,10 @@ char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strchr(const char *s, int c);
 void				ft_strclr(char *s);
 int					ft_strcmp(const char *s1, const char *s2);
-size_t				ft_strclen(const char *s, char c);
-size_t				ft_strccount(const char *s, char c);
+size_t				ft_strclen(const char *s, char *delim);
+int					ft_strnsepc(const char *s, char *delim);
+int					ft_strnseps(const char *s, char *delim);
+int					ft_strnsubs(const char *str, const char *s);
 char				*ft_strcpy(char *dst, const char *src);
 void				ft_strdel(char **as);
 char				*ft_strdup(const char *s);
@@ -123,7 +185,7 @@ char				*ft_strnew(size_t size);
 char				*ft_strnstr(const char *haystack, const char *needle,
 								size_t len);
 char				*ft_strrchr(const char *s, int c);
-char				**ft_strsplit(const char *s, char c);
+char				**ft_strsplit(const char *s, char *delim);
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strsub(const char *s, unsigned int start, size_t len);
 char				*ft_strtrim(const char *s);
@@ -133,41 +195,19 @@ size_t				ft_strarrlen(const char **arr);
 void				ft_strarrdel(char **arr);
 t_bool				ft_strstart(const char *str, const char *substr);
 t_bool				ft_strend(const char *str, const char *substr);
-size_t				ft_strscount(const char *str, const char *s);
 void				ft_strsqueeze(char str[], int c);
 void				ft_strarrsort(char *arr[], int len,
 									int (*cmp)(const char *, const char *));
 
 /*
-** MEMORY
+**
+**
+** >>>FILE INPUT/OUTPUT<<<
+**
+**
 */
 
-typedef union		u_ptr
-{
-	char			*char_ptr;
-	short			*short_ptr;
-	int				*int_ptr;
-	long			*long_ptr;
-}					t_ptr;
-
-void				ft_bzero(void *s, size_t n);
-void				*ft_memalloc(size_t size);
-void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
-void				*ft_memchr(const void *s, int c, size_t n);
-int					ft_memcmp(const void *s1, const void *s2, size_t n);
-void				*ft_memcpy(void *dst, const void *src, size_t n);
-void				ft_memdel(void **ap);
-void				*ft_memmove(void *dst, const void *src, size_t len);
-void				*ft_memset(void *b, int c, size_t len);
-unsigned int		ft_getbits(unsigned int x, int p, int n);
-unsigned int		ft_setbits(unsigned int x, int p, int n, unsigned int y);
-unsigned int		ft_invertbits(unsigned int x, int p, int n);
-void				ft_swap(char byte, void *n1, void *n2);
-void				*ft_memrealloc(void *ptr, size_t size);
-
-/*
-** FILE INPUT/OUTPUT
-*/
+# define BUF_SIZ	1024
 
 void				ft_putchar_fd(char c, int fd);
 void				ft_putchar(char c);
@@ -181,8 +221,6 @@ void				ft_putstr_fd(char const *s, int fd);
 void				ft_putstr(char const *s);
 void				ft_putlstr(char const *str, unsigned int start,
 								size_t len);
-void				ft_putbits(unsigned long n);
-void				ft_putbitsln(unsigned long n);
 int					ft_getchar(void);
 int					ft_nextchar(void);
 void				ft_savechar(int c);
@@ -194,7 +232,11 @@ long				ft_read(char *file_name, char **content);
 int					ft_readlines(char *file_name, char ***lines);
 
 /*
-** TREE: LINKED LIST
+**
+**
+** >>>TREE: LINKED LIST<<<
+**
+**
 */
 
 typedef struct		s_list
@@ -212,7 +254,11 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 /*
-** TREE: GENERAL TREE
+**
+**
+** >>>TREE: GENERAL TREE<<<
+**
+**
 */
 
 typedef struct		s_tree
@@ -228,7 +274,11 @@ int					ft_gntheight(t_tree *gnt);
 int					ft_gntleafcount(t_tree *gnt);
 
 /*
-** TREE: BINARY TREE
+**
+**
+** >>>TREE: BINARY TREE<<<
+**
+**
 */
 
 typedef struct		s_btree
@@ -249,7 +299,11 @@ void				ft_bntalter_pre(t_btree *node, void *(*f)(void *));
 void				ft_bntalter_post(t_btree *node, void *(*f)(void *));
 
 /*
-** TREE: BINARY TREE: BINARY SEARCH TREE
+**
+**
+** >>>TREE: BINARY TREE: BINARY SEARCH TREE<<<
+**
+**
 */
 
 t_bool				ft_isbst(t_btree *bt, char *data_type);
@@ -259,22 +313,26 @@ void				*ft_bstsearch(t_btree *bst, void *data_ref,
 									int (*cmp)(void *, void *));
 
 /*
-** TREE: BINARY TREE: BINARY SEARCH TREE: RED BLACK TREE
+**
+**
+** >>>TREE: BINARY TREE: BINARY SEARCH TREE: RED BLACK TREE<<<
+**
+**
 */
 
-enum				e_rb_color
+enum				e_rbcolor
 {
 	RB_BLACK,
 	RB_RED
 };
 
-typedef struct		s_rb_trr
+typedef struct		s_rbtree
 {
 	void			*data;
-	struct s_rb_trr	*parent;
-	struct s_rb_trr	*left;
-	struct s_rb_trr	*right;
-	enum e_rb_color	color;
-}					t_rb_trr;
+	struct s_rbtree	*parent;
+	struct s_rbtree	*left;
+	struct s_rbtree	*right;
+	enum e_rbcolor	color;
+}					t_rbtree;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 17:05:20 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/22 11:27:39 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/25 22:10:52 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void		put_recursively(t_obj *obj)
 	ft_printf("%s:\n", path_name);
 	free(path_name);
 	if (g_options[long_format])
-		put_obj_info(obj->sub_obj);
+		put_dir_info(obj);
 	else
 		put_obj_name(obj->sub_obj);
 	ft_putchar('\n');
