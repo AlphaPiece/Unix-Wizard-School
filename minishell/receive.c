@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read.c                                             :+:      :+:    :+:   */
+/*   receive.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 20:19:52 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/25 20:32:05 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/27 15:55:25 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	fill_buf(char *buf, int	bufsize)
 	}
 }
 
-char	*sh_read_line(void)
+char		**sh_receive(void)
 {
 	int		bufsize;
 	char	*buf;
@@ -48,5 +48,5 @@ char	*sh_read_line(void)
 	if (!(buf = (char *)malloc(sizeof(char) * bufsize)))
 		malloc_error("minishell");
 	fill_buf(buf);
-	return (buf);
+	return (ft_strsplit(buf));
 }
