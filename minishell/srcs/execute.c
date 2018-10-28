@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 15:04:36 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/28 15:28:22 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/28 15:34:22 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		sh_launch(char **args)
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
-		ft_dprintf(2, "fork: fork failed\n");
+		ft_dprintf(2, "fork: execution failed\n");
 	else
 		do
 			wpid = waitpid(pid, &status, WUNTRACED);

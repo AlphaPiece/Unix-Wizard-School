@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 15:59:55 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/27 16:29:35 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/28 15:44:48 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		sh_echo(char **args)
 {
-	char	tmp;
-
-	tmp = args[0][0];
+	while (*++args)
+		ft_printf((*(args + 1)) ? "%s " : "%s", *args);
+	ft_printf("\n");
 	return (1);
 }
