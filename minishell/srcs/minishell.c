@@ -6,11 +6,13 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 20:14:20 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/28 15:19:06 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/29 09:15:51 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**g_envp;
 
 void	sh_loop(void)
 {
@@ -27,8 +29,11 @@ void	sh_loop(void)
 	}
 }
 
-int		main(void)
+int		main(int argc, char **argv, char **envp)
 {
+	if (argc > 1 || argv[1])
+		return (1);
+	g_envp = envp;
 	sh_loop();
 	return (EXIT_SUCCESS);
 }

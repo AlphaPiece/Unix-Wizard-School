@@ -6,11 +6,13 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 15:04:36 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/28 15:34:22 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/29 11:02:30 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern char	**g_envp;
 
 t_builtin	g_builtin_list[BUILTIN_NUM] = \
 {
@@ -21,6 +23,28 @@ t_builtin	g_builtin_list[BUILTIN_NUM] = \
 	{"env", sh_env},
 	{"exit", sh_exit}
 };
+
+char	*sh_search(char *cmd)
+{
+	int		i;
+	char	**path_list;
+	char	*path;
+
+	i = 0;
+	while (g_envp[i] && !ft_strstart(g_env[i], "PATH"))
+		i++;
+	if (!g_envp[i] || !ft_strchr(g_envp[i], '='))
+	{
+		ft_dprintf(2, "search: can't find path\n");
+		exit(EXIT_FAILURE);
+	}
+	path_list = ft_strsplit(g_envp[i]);
+	i = -1;
+	while (path_list[++i])
+	{
+		if (!path_list[i])
+			path = 
+
 
 int		sh_launch(char **args)
 {
