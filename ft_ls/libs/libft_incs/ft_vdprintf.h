@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 09:43:53 by zwang             #+#    #+#             */
-/*   Updated: 2018/09/18 21:51:10 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/26 13:58:55 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ typedef	struct			s_handler
 ** LEAF
 */
 
-intmax_t				modify_signed_integer(t_package *package, va_list args);
-uintmax_t				modify_unsigned_integer(t_package *package, va_list args);
+intmax_t				modify_signed_integer(t_package *package,
+												va_list args);
+uintmax_t				modify_unsigned_integer(t_package *package,
+												va_list args);
 
 void					hash_handler(t_package *package, t_strblock *block,
 										uintmax_t num);

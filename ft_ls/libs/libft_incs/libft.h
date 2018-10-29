@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 11:20:28 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/26 13:21:19 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/29 10:48:46 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,24 @@
 # include "ft_vdprintf.h"
 # include "ft_bnt_to_bst.h"
 
-typedef int			t_bool;
-enum				{false, true};
+typedef enum		e_bool
+{
+	false,
+	true
+}					t_bool;
+
+typedef enum		e_state
+{
+	OUT,
+	IN
+}					t_state;
 
 /*
-**
-**
-** >>>MEMORY<<<
-**
-**
+** ==============
+** >            <
+** >>> MEMORY <<<
+** >            <
+** ==============
 */
 
 /*
@@ -79,11 +88,11 @@ void				*ft_memrealloc(void *ptr, size_t size);
 void				ft_putbits(void *x, size_t bit);
 
 /*
-**
-**
-** >>>NUMBER<<<
-**
-**
+** ==============
+** >            <
+** >>> NUMBER <<<
+** >            <
+** ==============
 */
 
 # define ABS(x)		(((x) < 0) ? -(x) : (x))
@@ -126,11 +135,11 @@ int					ft_min_intarr(int arr[], size_t	len);
 int					ft_sum_intarr(int arr[], size_t len);
 
 /*
-**
-**
-** >>>ASCII CHARACTER<<<
-**
-**
+** =======================
+** >                     <
+** >>> ASCII CHARACTER <<<
+** >                     <
+** =======================
 */
 
 t_bool				ft_isalnum(int c);
@@ -145,11 +154,11 @@ int					ft_tolower(int c);
 int					ft_toupper(int c);
 
 /*
-**
-**
-** >>>ASCII CHARACTER STRING<<<
-**
-**
+** ==============================
+** >                            <
+** >>> ASCII CHARACTER STRING <<<
+** >                            <
+** ==============================
 */
 
 int					ft_atoi(const char *str);
@@ -197,13 +206,14 @@ t_bool				ft_strend(const char *str, const char *substr);
 void				ft_strsqueeze(char str[], int c);
 void				ft_strarrsort(char *arr[], int len,
 									int (*cmp)(const char *, const char *));
+char				*ft_strcompose(int str_num, ...);
 
 /*
-**
-**
-** >>>FILE INPUT/OUTPUT<<<
-**
-**
+** =========================
+** >                       <
+** >>> FILE INPUT/OUTPUT <<<
+** >                       <
+** =========================
 */
 
 # define BUF_SIZ	1024
@@ -224,18 +234,20 @@ int					ft_getchar(void);
 int					ft_nextchar(void);
 void				ft_savechar(int c);
 int					ft_nextword(char *word, int limit);
+int					ft_vdprintf(int fd, const char *format, va_list args);
 int					ft_printf(const char *format, ...);
 int					ft_dprintf(int fd, const char *format, ...);
-int					ft_readline(int fd, char **line);
+int					ft_nextline(const int fd, char **line);
+int					ft_readline(const int fd, char **line);
 long				ft_read(char *file_name, char **content);
 int					ft_readlines(char *file_name, char ***lines);
 
 /*
-**
-**
-** >>>TREE: LINKED LIST<<<
-**
-**
+** =========================
+** >                       <
+** >>> TREE: LINKED LIST <<<
+** >                       <
+** =========================
 */
 
 typedef struct		s_list
@@ -253,11 +265,11 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 /*
-**
-**
-** >>>TREE: GENERAL TREE<<<
-**
-**
+** ==========================
+** >                        <
+** >>> TREE: GENERAL TREE <<<
+** >                        <
+** ==========================
 */
 
 typedef struct		s_tree
@@ -273,11 +285,11 @@ int					ft_gntheight(t_tree *gnt);
 int					ft_gntleafcount(t_tree *gnt);
 
 /*
-**
-**
-** >>>TREE: BINARY TREE<<<
-**
-**
+** =========================
+** >                       <
+** >>> TREE: BINARY TREE <<<
+** >                       <
+** =========================
 */
 
 typedef struct		s_btree
@@ -298,25 +310,26 @@ void				ft_bntalter_pre(t_btree *node, void *(*f)(void *));
 void				ft_bntalter_post(t_btree *node, void *(*f)(void *));
 
 /*
-**
-**
-** >>>TREE: BINARY TREE: BINARY SEARCH TREE<<<
-**
-**
+** =============================================
+** >                                           <
+** >>> TREE: BINARY TREE: BINARY SEARCH TREE <<<
+** >                                           <
+** =============================================
 */
 
 t_bool				ft_isbst(t_btree *bt, char *data_type);
+t_btree				*ft_bnt_to_bst(t_btree *bnt, int node_amt, char *data_type);
 t_btree				*ft_bstinsert(t_btree *bst, void *item,
 									int (*cmp)(void *, void *));
 void				*ft_bstsearch(t_btree *bst, void *data_ref,
 									int (*cmp)(void *, void *));
 
 /*
-**
-**
-** >>>TREE: BINARY TREE: BINARY SEARCH TREE: RED BLACK TREE<<<
-**
-**
+** =============================================================
+** >                                                           <
+** >>> TREE: BINARY TREE: BINARY SEARCH TREE: RED BLACK TREE <<<
+** >                                                           <
+** =============================================================
 */
 
 enum				e_rbcolor
@@ -333,5 +346,39 @@ typedef struct		s_rbtree
 	struct s_rbtree	*right;
 	enum e_rbcolor	color;
 }					t_rbtree;
+
+/*
+** ========================================
+** >                                      <
+** >>> HASH-BASED STRUCTURE: HASH TABLE <<<
+** >                                      <
+** ========================================
+*/
+
+unsigned int		ft_hash_str(const char *s, unsigned int hashsize);
+
+typedef struct		s_pair
+{
+	char			*key;
+	void			*value;
+	struct s_pair	*next;
+}					t_pair;
+
+t_pair				*ft_pairnew(char *key, void *value);
+
+# define DICT_SPACE	512
+
+typedef struct		s_dict
+{
+	t_pair			**set;
+	int				pair_num;
+}					t_dict;
+
+t_dict				*ft_dictnew(void);
+void				ft_dictadd(t_dict *dict, char *key, void *value);
+void				*ft_dictget(t_dict *dict, char *key);
+void				ft_dictremove(t_dict *dict, char *key);
+void				ft_dictclear(t_dict *dict);
+void				ft_dictdel(t_dict **dict);
 
 #endif

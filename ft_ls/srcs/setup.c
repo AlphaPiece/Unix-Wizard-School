@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 10:00:47 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/22 11:46:26 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/29 11:00:23 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_obj		*create_new_obj(char *name)
 char		*get_path_name(t_obj *obj)
 {
 	char	*path_name;
-	char	*path;
 	char	*ptr;
 
 	path_name = NULL;
@@ -42,10 +41,8 @@ char		*get_path_name(t_obj *obj)
 			path_name = ft_strdup(obj->name);
 		else
 		{
-			path = ft_strjoin(obj->name, "/");
 			ptr = path_name;
-			path_name = ft_strjoin(path, path_name);
-			free(path);
+			path_name = ft_strcompose(3, obj->name, "/" , path_name);
 			if (ptr)
 				free(ptr);
 		}
