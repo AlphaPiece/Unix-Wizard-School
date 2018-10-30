@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 15:04:36 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/29 11:02:30 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/29 14:36:28 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,37 @@ t_builtin	g_builtin_list[BUILTIN_NUM] = \
 	{"exit", sh_exit}
 };
 
-char	*sh_search(char *cmd)
+int		sh_search(char **args)
 {
 	int		i;
 	char	**path_list;
 	char	*path;
+	int		flag;
 
 	i = 0;
-	while (g_envp[i] && !ft_strstart(g_env[i], "PATH"))
+	while (g_envp[i] && !ft_strstart(g_envp[i], "PATH"))
 		i++;
 	if (!g_envp[i] || !ft_strchr(g_envp[i], '='))
 	{
 		ft_dprintf(2, "search: can't find path\n");
 		exit(EXIT_FAILURE);
 	}
-	path_list = ft_strsplit(g_envp[i]);
+	path_list = ft_strsplit(g_envp[i], ":");
 	i = -1;
-	while (path_list[++i])
+	flag = 0;
+	while (path_list[++i] && !flag)
 	{
 		if (!path_list[i])
-			path = 
-
+			path = args[0];
+		else
+			path = ft_strcompose(3, path_list[i], "/", args[0]);
+		flag = (execve(path, args, g_envp) == -1) ? 0 : 1;
+		if (!ft_strequ(path, args[0]))
+			free(path);
+	}
+	ft_strarrdel(path_list);
+	return (flag);
+}
 
 int		sh_launch(char **args)
 {
@@ -54,8 +64,8 @@ int		sh_launch(char **args)
 
 	if ((pid = fork()) == 0)
 	{
-		if (execvp(args[0], args) == -1)
-			ft_dprintf(2, "execvp: execution failed\n");
+		if (sh_search(args))
+			ft_dprintf(2, "execve: execution failed\n");
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)

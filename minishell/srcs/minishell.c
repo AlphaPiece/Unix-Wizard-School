@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 20:14:20 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/29 09:15:51 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/29 14:49:03 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sh_loop(void)
 	status = 1;
 	while (status)
 	{
-		ft_printf("$> ");
+		ft_printf(GREEN "$> " RESET);
 		args = sh_receive();
 		status = sh_execute(args);
 		free(args);

@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 11:20:28 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/27 14:31:46 by zwang            ###   ########.fr       */
+/*   Updated: 2018/10/29 10:48:46 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ typedef enum		e_bool
 	false,
 	true
 }					t_bool;
+
+typedef enum		e_state
+{
+	OUT,
+	IN
+}					t_state;
 
 /*
 ** ==============
@@ -155,12 +161,6 @@ int					ft_toupper(int c);
 ** ==============================
 */
 
-typedef enum		e_state
-{
-	OUT,
-	IN
-}					t_state;
-
 int					ft_atoi(const char *str);
 long				ft_atol(const char *str);
 double				ft_atof(const char *str);
@@ -206,6 +206,7 @@ t_bool				ft_strend(const char *str, const char *substr);
 void				ft_strsqueeze(char str[], int c);
 void				ft_strarrsort(char *arr[], int len,
 									int (*cmp)(const char *, const char *));
+char				*ft_strcompose(int str_num, ...);
 
 /*
 ** =========================
