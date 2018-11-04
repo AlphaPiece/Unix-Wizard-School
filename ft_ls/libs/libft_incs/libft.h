@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 11:20:28 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/29 10:48:46 by zwang            ###   ########.fr       */
+/*   Updated: 2018/11/03 21:11:56 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,8 +199,9 @@ char				*ft_strsub(const char *s, unsigned int start, size_t len);
 char				*ft_strtrim(const char *s);
 char				*ft_strcapitalize(char *s);
 t_bool				ft_check_brackets(const char *s);
-size_t				ft_strarrlen(const char **arr);
-void				ft_strarrdel(char **arr);
+size_t				ft_strarrlen(const char *arr[]);
+char				**ft_strarrdup(char *dst[], const char *src[]);
+void				ft_strarrdel(char *arr[]);
 t_bool				ft_strstart(const char *str, const char *substr);
 t_bool				ft_strend(const char *str, const char *substr);
 void				ft_strsqueeze(char str[], int c);
@@ -222,13 +223,15 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putchar(char c);
 void				ft_putnchar_fd(char c, int n, int fd);
 void				ft_putnchar(char c, int n);
-void				ft_putendl_fd(char const *s, int fd);
-void				ft_putendl(char const *s);
+void				ft_putendl_fd(const char *s, int fd);
+void				ft_putendl(const char *s);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putnbr(int n);
-void				ft_putstr_fd(char const *s, int fd);
-void				ft_putstr(char const *s);
-void				ft_putlstr(char const *str, unsigned int start,
+void				ft_putstr_fd(const char *s, int fd);
+void				ft_putstr(const char *s);
+void				ft_putlstr_fd(const char *str, unsigned int start,
+									size_t len, int fd);
+void				ft_putlstr(const char *str, unsigned int start,
 								size_t len);
 int					ft_getchar(void);
 int					ft_nextchar(void);
@@ -283,6 +286,8 @@ typedef struct		s_tree
 t_tree				*ft_gntnew(void *data);
 int					ft_gntheight(t_tree *gnt);
 int					ft_gntleafcount(t_tree *gnt);
+int					ft_gntnodecount(t_tree *gnt);
+int					ft_gntarity(t_tree *gnt);
 
 /*
 ** =========================
