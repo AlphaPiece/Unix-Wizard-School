@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 09:44:48 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/22 11:33:05 by zwang            ###   ########.fr       */
+/*   Updated: 2018/11/07 14:26:10 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,14 @@
 # define OPTION_NUM		5
 # define OBJ_NUM		30
 
-enum option	{long_format, recursion, all, reverse, date};
+enum				e_option
+{
+	long_format,
+	recursion,
+	all,
+	reverse,
+	date
+};
 
 typedef struct		s_obj
 {
@@ -50,7 +57,7 @@ void				set_sub_dir_name(t_obj *obj);
 int					compare_ascii(t_obj *obj1, t_obj *obj2);
 int					compare_time(t_obj *obj1, t_obj *obj2);
 void				swap_obj(t_obj *obj_set[], int i, int j);
-void				sort_obj(t_obj *obj_set[], int obj_num, 
+void				sort_obj(t_obj *obj_set[], int obj_num,
 								int (*cmp)(t_obj *, t_obj *));
 void				reverse_obj(t_obj *obj_set[], int obj_num);
 

@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 10:00:47 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/29 11:00:23 by zwang            ###   ########.fr       */
+/*   Updated: 2018/11/07 14:27:37 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char		*get_path_name(t_obj *obj)
 		else
 		{
 			ptr = path_name;
-			path_name = ft_strcompose(3, obj->name, "/" , path_name);
+			path_name = ft_strcompose(3, obj->name, "/", path_name);
 			if (ptr)
 				free(ptr);
 		}
@@ -111,7 +111,7 @@ void		set_sub_obj(t_obj *obj)
 	while ((dirent = readdir(dir)))
 	{
 		if (n[0] + 1 == n[1])
-			if (!(obj->sub_obj = (t_obj **)ft_memrealloc(obj->sub_obj,
+			if (!(obj->sub_obj = (t_obj **)ft_memrealloc((void **)&obj->sub_obj,
 				sizeof(t_obj *) * (n[1] += OBJ_NUM))))
 				malloc_error();
 		obj->sub_obj[n[0]] = create_new_obj(dirent->d_name);

@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 11:20:28 by zwang             #+#    #+#             */
-/*   Updated: 2018/11/03 21:11:56 by zwang            ###   ########.fr       */
+/*   Updated: 2018/11/04 14:52:21 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef union		u_ptr
 
 void				ft_bzero(void *s, size_t n);
 void				*ft_memalloc(size_t size);
+void				ft_memfree(void **ptr);
 void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
@@ -84,7 +85,7 @@ unsigned int		ft_getbits(unsigned int x, int p, int n);
 unsigned int		ft_setbits(unsigned int x, int p, int n, unsigned int y);
 unsigned int		ft_invertbits(unsigned int x, int p, int n);
 void				ft_swap(size_t byte, void *n1, void *n2);
-void				*ft_memrealloc(void *ptr, size_t size);
+void				*ft_memrealloc(void **ptr, size_t size);
 void				ft_putbits(void *x, size_t bit);
 
 /*
