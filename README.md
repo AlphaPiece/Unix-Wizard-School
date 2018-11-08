@@ -1,6 +1,6 @@
 # UnixWizardSchool
 
-## *As beautiful as a Unix.*
+## *As beautiful as Unix.*
 
 
 Here are some unix commands (simple version) implemented in C.
