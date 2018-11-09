@@ -6,13 +6,14 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 15:04:36 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/29 14:36:28 by zwang            ###   ########.fr       */
+/*   Updated: 2018/11/04 16:32:26 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern char	**g_envp;
+extern char		**g_envp;
+extern size_t	g_size;
 
 t_builtin	g_builtin_list[BUILTIN_NUM] = \
 {
@@ -32,7 +33,7 @@ int		sh_search(char **args)
 	int		flag;
 
 	i = 0;
-	while (g_envp[i] && !ft_strstart(g_envp[i], "PATH"))
+	while (i < (int)g_size && g_envp[i] && !ft_strstart(g_envp[i], "PATH"))
 		i++;
 	if (!g_envp[i] || !ft_strchr(g_envp[i], '='))
 	{
@@ -50,7 +51,7 @@ int		sh_search(char **args)
 			path = ft_strcompose(3, path_list[i], "/", args[0]);
 		flag = (execve(path, args, g_envp) == -1) ? 0 : 1;
 		if (!ft_strequ(path, args[0]))
-			free(path);
+			ft_memfree((void **)&path);
 	}
 	ft_strarrdel(path_list);
 	return (flag);

@@ -6,19 +6,18 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 15:55:41 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/29 09:19:17 by zwang            ###   ########.fr       */
+/*   Updated: 2018/11/04 16:27:28 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern char	**g_envp;
-extern char	*g_var;
+extern char		**g_envp;
+extern size_t	g_size;
 
 int			sh_setenv(char **args)
 {
 	int		i;
-	char	*var;
 
 	if (!args[1])
 	{
@@ -26,16 +25,19 @@ int			sh_setenv(char **args)
 		return (1);
 	}
 	i = -1;
-	while (g_envp[++i])
-	{
-		var = ft_strsub(g_envp[i], 0, ft_strchr(g_envp[i], '=') - g_envp[i]);
-		if (ft_strstart(args[1], var))
+	while (++i < (int)g_size)
+		if (!g_envp[i])
 		{
-			if (g_var)
-				free(g_envp[i]);
-			g_envp[i] = args[1];
+			g_envp[i] = ft_strdup(args[1]);
+			break ;
 		}
-		free(var);
+	if (i == (int)g_size)
+	{
+		g_size *= 2;
+		g_envp = ft_memrealloc((void **)&g_envp, sizeof(char *) * g_size);
+		g_envp[i] = ft_strdup(args[1]);
+		while (++i < (int)g_size)
+			g_envp[i] = NULL;
 	}
 	return (1);
 }

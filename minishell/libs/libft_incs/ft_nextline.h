@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 19:44:39 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/08 06:34:13 by zwang            ###   ########.fr       */
+/*   Updated: 2018/11/01 11:23:03 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_NEXTLINE_H
 
 # include "libft.h"
-# define BUFF_SIZE 42
+# define BUFF_SIZE 512
 # define NL_INDEX (nlc - buffer)
 # define MALLOC_FREE(x, y, z) x = y; y = z; free(x);
 

@@ -6,13 +6,14 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 15:59:08 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/29 09:20:08 by zwang            ###   ########.fr       */
+/*   Updated: 2018/11/04 16:27:16 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern char	**g_envp;
+extern char		**g_envp;
+extern size_t	g_size;
 
 int			sh_env(char **args)
 {
@@ -21,8 +22,8 @@ int			sh_env(char **args)
 
 	tmp = args;
 	i = -1;
-	while (g_envp[++i])
-		if (ft_strchr(g_envp[i], '='))
+	while (++i < (int)g_size)
+		if (g_envp[i])
 			ft_printf("%s\n", g_envp[i]);
 	return (1);
 }

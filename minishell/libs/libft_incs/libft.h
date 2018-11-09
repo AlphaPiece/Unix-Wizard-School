@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 11:20:28 by zwang             #+#    #+#             */
-/*   Updated: 2018/10/29 10:48:46 by zwang            ###   ########.fr       */
+/*   Updated: 2018/11/08 18:53:09 by zwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef union		u_ptr
 
 void				ft_bzero(void *s, size_t n);
 void				*ft_memalloc(size_t size);
+void				ft_memfree(void **ptr);
 void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
@@ -83,8 +84,8 @@ void				*ft_memset(void *b, int c, size_t len);
 unsigned int		ft_getbits(unsigned int x, int p, int n);
 unsigned int		ft_setbits(unsigned int x, int p, int n, unsigned int y);
 unsigned int		ft_invertbits(unsigned int x, int p, int n);
-void				ft_swap(size_t byte, void *n1, void *n2);
-void				*ft_memrealloc(void *ptr, size_t size);
+void				ft_memswap(void *p1, void *p2, size_t byte);
+void				*ft_memrealloc(void **ptr, size_t size);
 void				ft_putbits(void *x, size_t bit);
 
 /*
@@ -199,8 +200,9 @@ char				*ft_strsub(const char *s, unsigned int start, size_t len);
 char				*ft_strtrim(const char *s);
 char				*ft_strcapitalize(char *s);
 t_bool				ft_check_brackets(const char *s);
-size_t				ft_strarrlen(const char **arr);
-void				ft_strarrdel(char **arr);
+size_t				ft_strarrlen(const char *arr[]);
+char				**ft_strarrdup(char *dst[], const char *src[]);
+void				ft_strarrdel(char *arr[]);
 t_bool				ft_strstart(const char *str, const char *substr);
 t_bool				ft_strend(const char *str, const char *substr);
 void				ft_strsqueeze(char str[], int c);
@@ -222,13 +224,15 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putchar(char c);
 void				ft_putnchar_fd(char c, int n, int fd);
 void				ft_putnchar(char c, int n);
-void				ft_putendl_fd(char const *s, int fd);
-void				ft_putendl(char const *s);
+void				ft_putendl_fd(const char *s, int fd);
+void				ft_putendl(const char *s);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putnbr(int n);
-void				ft_putstr_fd(char const *s, int fd);
-void				ft_putstr(char const *s);
-void				ft_putlstr(char const *str, unsigned int start,
+void				ft_putstr_fd(const char *s, int fd);
+void				ft_putstr(const char *s);
+void				ft_putlstr_fd(const char *str, unsigned int start,
+									size_t len, int fd);
+void				ft_putlstr(const char *str, unsigned int start,
 								size_t len);
 int					ft_getchar(void);
 int					ft_nextchar(void);
@@ -283,6 +287,8 @@ typedef struct		s_tree
 t_tree				*ft_gntnew(void *data);
 int					ft_gntheight(t_tree *gnt);
 int					ft_gntleafcount(t_tree *gnt);
+int					ft_gntnodecount(t_tree *gnt);
+int					ft_gntarity(t_tree *gnt);
 
 /*
 ** =========================
