@@ -6,7 +6,7 @@
 /*   By: Zexi Wang <twopieces0921@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 20:28:29 by Zexi Wang         #+#    #+#             */
-/*   Updated: 2019/03/20 22:01:27 by Zexi Wang        ###   ########.fr       */
+/*   Updated: 2019/03/20 23:26:38 by Zexi Wang        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int		get_front_space(int day, int day_no)
 {
 	while (day >= 7)
 		day -= 7;
-	while (day-- > 0)
+	while (--day > 0)
 		day_no--;
-	return ((day_no < 0) ? day_no + 8 : day_no + 1);
+	return ((day_no < 0) ? day_no + 7 : day_no);
 }
 
 void	print_month(void)
@@ -88,6 +88,7 @@ void	print_month(void)
 		i++;
 	}
 	printf("\n");
+	free(day_seq);
 }
 
 int		main(void)
