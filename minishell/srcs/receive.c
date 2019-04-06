@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 20:19:52 by zwang             #+#    #+#             */
-/*   Updated: 2019/04/05 20:20:14 by Zexi Wang        ###   ########.fr       */
+/*   Updated: 2019/04/06 19:17:40 by Zexi Wang        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ static void	fill_buf(char *buf, int	bufsize)
 		pos++;
 		if (pos >= bufsize)
 		{
-			bufsize += BUF_SIZ;
-			if (!(buf = ft_memrealloc((void **)&buf, bufsize)))
+			buf = ft_memrealloc((void **)&buf, bufsize, bufsize + BUF_SIZ);
+			if (!buf)
 			{
 				ft_dprintf(2, "sh: malloc failed\n");
 				return ;
 			}
+			bufsize += BUF_SIZ;
 		}
 	}
 }

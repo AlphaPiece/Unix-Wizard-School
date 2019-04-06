@@ -6,7 +6,7 @@
 /*   By: Zexi Wang <twopieces0921@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 22:10:23 by Zexi Wang         #+#    #+#             */
-/*   Updated: 2019/04/05 23:41:37 by Zexi Wang        ###   ########.fr       */
+/*   Updated: 2019/04/06 19:24:27 by Zexi Wang        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	sh_loop(void)
 			break ;
 		}
 		sh_execute(args);
-		for (int i = 0; args[i]; i++)
-			ft_printf("%s\n", args[i]);
 		if (args)
 			ft_strarrdel(args);
 		args = NULL;

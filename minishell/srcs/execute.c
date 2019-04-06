@@ -6,7 +6,7 @@
 /*   By: Zexi Wang <twopieces0921@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 22:15:51 by Zexi Wang         #+#    #+#             */
-/*   Updated: 2019/04/05 23:04:15 by Zexi Wang        ###   ########.fr       */
+/*   Updated: 2019/04/06 19:19:59 by Zexi Wang        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_builtin	g_builtin_list[BUILTIN_NUM] = \
 {
 	{"echo", sh_echo},
 	{"cd", sh_cd},
-	{"setenv", sh_setenv},
-	{"unsetenv", sh_unsetenv},
+//	{"setenv", sh_setenv},
+//	{"unsetenv", sh_unsetenv},
 	{"env", sh_env},
 };
 

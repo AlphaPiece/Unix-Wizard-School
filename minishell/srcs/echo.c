@@ -6,7 +6,7 @@
 /*   By: Zexi Wang <twopieces0921@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:44:11 by Zexi Wang         #+#    #+#             */
-/*   Updated: 2019/04/05 23:47:35 by Zexi Wang        ###   ########.fr       */
+/*   Updated: 2019/04/05 23:48:54 by Zexi Wang        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ void	sh_echo(char **args)
 
 	newline = true;
 	i = 1;
-	while (args[i] && args[i][j] == '-')
+	while (args[i] && args[i][0] == '-')
 	{
+		j = 0;
 		while (args[i][++j])
 			if (args[i][j] == 'n')
 				newline = false;
