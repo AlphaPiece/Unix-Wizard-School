@@ -6,7 +6,7 @@
 /*   By: zwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 10:00:47 by zwang             #+#    #+#             */
-/*   Updated: 2018/11/07 14:27:37 by zwang            ###   ########.fr       */
+/*   Updated: 2019/04/12 11:03:54 by Zexi Wang        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,9 @@ void		set_sub_obj(t_obj *obj)
 	{
 		if (n[0] + 1 == n[1])
 			if (!(obj->sub_obj = (t_obj **)ft_memrealloc((void **)&obj->sub_obj,
-				sizeof(t_obj *) * (n[1] += OBJ_NUM))))
+					n[1], sizeof(t_obj *) * (n[1] + OBJ_NUM))))
 				malloc_error();
+		n[1] += OBJ_NUM;
 		obj->sub_obj[n[0]] = create_new_obj(dirent->d_name);
 		obj->sub_obj[n[0]++]->super_obj = obj;
 	}
