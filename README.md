@@ -1,4 +1,4 @@
-# UnixWizardSchool
+# Unix Wizard School
 
 ## *As beautiful as Unix.*
 
